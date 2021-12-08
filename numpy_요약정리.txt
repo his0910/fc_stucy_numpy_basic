@@ -1,0 +1,131 @@
+numpy 요약정리
+
+
+1. import & alias(별칭)
+import numpy as np
+
+
+2. ndarray 생성
+arr = np.array([1, 2, 3, 4], dtype = int)
+arr
+
+2-1. list로부터 생성
+mylist1 = [1, 2, 3, 4]
+mylist2 = [[1, 2, 3, 4],
+               [5, 6, 7, 8]]
+
+arr1 = np.array(mylist1)
+arr2 = np.array(mylist2)
+
+
+2-2. shape 확인
+arr1.shape
+arr2.shape
+
+
+3. array에서의 data 타입 : 1개의 단일 데이터 타입만 허용
+
+
+4. index
+4-1. 슬라이싱(slicing)
+-1 index 지정하여 색인
+- (1차원) arr = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+- (2차원) arr2d = np.array([[1, 2, 3, 4], 
+                  	           [5, 6, 7, 8], 
+                                      [9, 10, 11, 12]])
+
+-2 범위 색인
+- (1차원) arr / arr[1:] / arr[:5] 등등
+- (2차원) arr2d[0, :] / arr2d[:, 2] / arr2d[:2, :] 등등
+
+
+4-2. Fancy 인덱싱
+- 범위가 아닌 특정 index 집합의 값을 선택하여 추출하고 싶을 때 활용
+- 반드시 추출하고 싶은 인덱스를 꺽쇠 괄호로 묶어야 함
+- 예) arr = np.array([10, 23, 2, 7, 90, 65, 32, 66, 70])
+- idx = [1, 3, 5]
+- arr[idx]
+- array([23, 7, 65])
+
+
+4-3. Boolean 인덱싱
+-1 True/False로 색인
+- 조건이 참인 애들만 따로 인덱스로 추출하겠다
+- arr = np.array([1, 2, 3, 4, 5, 6, 7])
+- myTrueFalse = [True, False, True, False, True, False, True]
+- arr[myTrueFalse]
+- array([1, 3, 5, 7])
+
+-2 조건필터로 색인
+arr2d > 2
+array([[False, False,  True,  True],
+       [ True,  True,  True,  True],
+       [ True,  True,  True,  True]])
+
+arr2d[ arr2d > 2 ]
+array([3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+
+
+5. arange
+5-1. 순서대로 값을 생성하려면? 직접 쓰는 방법
+
+5-2. arange로 쉽게 생성하기
+arr = np.arange(1, 11)
+arr
+array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10])
+
+5-3. keyword 인자를 사용하기
+arr = np.arange(start=1, stop=11)
+arr
+array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10])
+* arr = np.arange(stop=11, start=1) 도 같은 결과를 나타냄
+
+5-4. 홀수 값만 생성?
+arr = np.arange(1, 11, 2)
+arr = np.arange(start = 1, stop = 11, step = 2)
+
+5-5. range(파이썬 기초 문법, 넘파이와 상관X)와 비교
+- range는 말 그대로 범위만 지정하는 것
+- 보통 for in 의 반복문에서 많이 사용
+
+
+6. 1차원 정렬
+arr = np.array([1, 10, 5, 8, 2, 4, 3, 6, 8, 7, 9])
+arr
+array([ 1, 10,  5,  8,  2,  4,  3,  6,  8,  7,  9])
+
+np.sort(arr)
+array([ 1,  2,  3,  4,  5,  6,  7,  8,  8,  9, 10])
+- 기본적으로 오름차순 정렬
+- 내림차순 정렬을 하고 싶다면, 옵션에 -1값을 주면 됨
+- np.sort(arr)[::-1]
+- 주의 : 하지만 이 정렬된 값들은 유지가 되지 않음
+
+arr2 = np.sort(arr)
+- 강사님이 추천한 방법. 새로운 변수에 담아라.
+- arr
+- arr2
+- arr.sort()
+- arr
+
+
+7. N차원 정렬
+7-1. 열 정렬(왼쪽에서 오른쪽으로)
+arr2d
+np.sort(arr2d, axis=1)
+
+7-2. 행 정렬(위에서 아래로)
+arr2d
+np.sort(arr2d, axis=0)
+
+
+8. argsort (index를 반환)
+- 정렬된 값을 반환하는 것이 아니라 index를 반환
+
+
+9. 행렬 사칙연산
+
+
+10. Broadcasting
+- 숫자 연산(단일)
+- array(배열)의 브로드캐스팅 : shape 유지
